@@ -160,8 +160,8 @@ if __name__ == '__main__':
         json.dump(data, open("main3_result.txt", 'w'),
                   ensure_ascii=False, indent=4)
         print("data dumped")
-        # data = json.load(open("main3_result.txt"))
-        # for i in range(20):
-        #     print("weight", data[i]['weight'])
+        data = json.load(open("main3_result.txt"))
+        for i in range(5):
+            print(data[i])
     except Exception as e:
         print(type(e), e)
