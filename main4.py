@@ -1,7 +1,7 @@
 # сумма всех умерших
 import pandas as pd
 from multiprocessing import Pool
-from time import sleep, monotonic
+from time import monotonic
 import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
@@ -16,7 +16,8 @@ if __name__ == '__main__':
     # избавиться от нежелательных данных
     df.fillna(-1)
 
-    # dead_list = list(df['Умерли'])
+    deadsum = 0
+    
     fig = plt.figure()
     plt.title("Время выполнения")
     plt.ylabel("Время, сек")
@@ -26,13 +27,9 @@ if __name__ == '__main__':
     for i in range(1, 9):
         t_s = monotonic()
         with Pool(i) as pl:
-            print(pl.apply(sum, [df['Умерли']]))
-        print(i, "time:", monotonic()-t_s)
+            deadsum = pl.apply(sum, [df['Умерли']])
+        print(i, "time:", round(monotonic()-t_s, 3))
         xvals.append(i)
         yvals.append(round(monotonic()-t_s, 3))
-    # plt.plot(xvals, yvals, color='teal', linestyle='--', marker='.', linewidth=1, markersize=10)
     plt.plot(xvals, yvals, marker='.', markersize=10)
     plt.savefig("graph.png")
-    plt.show()
-
-
