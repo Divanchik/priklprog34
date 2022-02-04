@@ -18,13 +18,13 @@ if __name__ == '__main__':
 
     deadsum = 0
     
-    fig = plt.figure()
+    fig = plt.figure(figsize=(10, 10))
     plt.title("Время выполнения")
     plt.ylabel("Время, сек")
     plt.xlabel("Количество процессов")
     xvals = []
     yvals = []
-    for i in range(1, 9):
+    for i in range(1, 25):
         t_s = monotonic()
         with Pool(i) as pl:
             deadsum = pl.apply(sum, [df['Умерли']])
@@ -33,3 +33,4 @@ if __name__ == '__main__':
         yvals.append(round(monotonic()-t_s, 3))
     plt.plot(xvals, yvals, marker='.', markersize=10)
     plt.savefig("graph.png")
+    print("Сумма умерших:", deadsum)
